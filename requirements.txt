@@ -1,0 +1,5 @@
+django
+google-generativeai
+markdown2
+gunicorn
+whitenoise

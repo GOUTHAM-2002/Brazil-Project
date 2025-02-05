@@ -1,0 +1,48 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Restaurants Tile -->
+    <div class="dashboard-tile">
+        <h2>
+            <i class="fas fa-store"></i>
+            Manage Restaurants
+        </h2>
+        <p>Add or update your restaurant information, including menu items, hours, and delivery options.</p>
+        <a href="{% url 'admin:restaurant_restaurant_changelist' %}" class="dashboard-button">View Restaurants</a>
+    </div>
+
+    <!-- Target Audience Tile -->
+    <div class="dashboard-tile">
+        <h2>
+            <i class="fas fa-users"></i>
+            Target Audience
+        </h2>
+        <p>Define and manage your target customer segments to better understand your market.</p>
+        <a href="{% url 'admin:restaurant_targetaudience_changelist' %}" class="dashboard-button">Manage Audiences</a>
+    </div>
+
+    <!-- Quick Actions Tile -->
+    <div class="dashboard-tile">
+        <h2>
+            <i class="fas fa-bolt"></i>
+            Quick Actions
+        </h2>
+        <ul>
+            <li><a href="{% url 'admin:restaurant_restaurant_add' %}">Add New Restaurant</a></li>
+            <li><a href="{% url 'admin:restaurant_targetaudience_add' %}">Add Target Audience</a></li>
+        </ul>
+    </div>
+
+    <!-- Statistics Tile -->
+    <div class="dashboard-tile">
+        <h2>
+            <i class="fas fa-chart-bar"></i>
+            Overview
+        </h2>
+        <p>Total Restaurants: {{ restaurants_count }}</p>
+        <p>Total Audience Segments: {{ audience_count }}</p>
+    </div>
+</div>
+{% endblock %} 
