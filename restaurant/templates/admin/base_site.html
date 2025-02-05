@@ -5,6 +5,469 @@
 
 {% block extrastyle %}
 <style>
+    /* Color Variables */
+:root {
+    --primary-color: #FF6B6B;
+    --secondary-color: #4ECDC4;
+    --background-color: #121212;
+    --card-color: #1E1E1E;
+    --text-color: #E4E6EB;
+    --text-muted: #B0B3B8;
+    --input-bg: #2C2C2C;
+    --input-border: #3A3A3A;
+    --table-header: #252525;
+    --table-bg: #1E1E1E;
+    --filter-bg: #252525;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --hover-bg: #2D2D2D;
+    --link-color: #6EA8FE;
+    --link-hover-color: #9EC5FE;
+    --dropdown-bg: #2C2C2C;
+    --dropdown-hover: #3D3D3D;
+    --dropdown-selected: #4A4A4A;
+    --dropdown-text: #E4E6EB;
+}
+
+/* Overall Layout */
+#container {
+    background-color: var(--background-color);
+    min-height: 100vh;
+}
+
+/* Header Styling */
+#header {
+    background: #1A1A1A;
+    border-bottom: 1px solid #333;
+}
+
+#branding h1 {
+    color: white;
+    font-size: 28px;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(52, 52, 52, 0.1);
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+/* Dashboard Tiles */
+.dashboard-tile {
+    background: var(--card-color);
+    border-radius: 15px;
+    padding: 30px;
+    width: 400px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+.dashboard-tile:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px var(--shadow-color);
+    background: var(--hover-bg);
+}
+
+.dashboard-tile h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.dashboard-tile i {
+    font-size: 28px;
+}
+
+.dashboard-tile p {
+    color: var(--text-color);
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.dashboard-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.dashboard-button:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+/* Form Layout */
+.module {
+    background: var(--card-color);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 20px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    border: 1px solid #333;
+}
+
+/* Input Fields and Dropdowns */
+input[type="text"],
+textarea,
+select,
+.select2-container .select2-selection--single {
+    background-color: var(--dropdown-bg);
+    color: var(--dropdown-text);
+    border: 1px solid var(--input-border);
+    padding: 12px 15px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+/* Dropdown Options */
+select option {
+    background-color: var(--dropdown-bg) !important;
+    color: var(--dropdown-text) !important;
+    padding: 12px;
+}
+
+select option:hover,
+select option:focus {
+    background-color: var(--dropdown-selected) !important;
+    color: var(--dropdown-text) !important;
+}
+
+select option:checked {
+    background-color: var(--dropdown-selected) !important;
+    color: var(--dropdown-text) !important;
+}
+
+/* Selected Text */
+select[data-selected],
+select:not([multiple]) option:checked {
+    background-color: var(--dropdown-bg);
+    color: var(--dropdown-text) !important;
+}
+
+/* Dropdown Arrow */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E4E6EB' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 15px;
+    padding-right: 45px;
+}
+
+/* Focus States */
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--primary-color);
+    background-color: #363636;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255,107,107,0.1);
+}
+
+/* Labels */
+label {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* Help Text */
+.help {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Section Headers */
+.form-row {
+    background: var(--card-color);
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid #333;
+}
+
+.form-row:hover {
+    background: var(--hover-bg);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+/* Submit Buttons */
+.submit-row {
+    background: var(--card-color);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.submit-row input {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-row input[type="submit"] {
+    background: var(--primary-color);
+    color: white;
+}
+
+.submit-row input[type="submit"]:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+/* Delete Button */
+.deletelink {
+    background: #fc8181;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.deletelink:hover {
+    background: #f56565;
+}
+
+/* Section Titles */
+h2 {
+    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--input-border);
+}
+
+/* Field Groups */
+fieldset {
+    border: none;
+    padding: 20px;
+    margin-bottom: 30px;
+    background: var(--background-color);
+    border-radius: 12px;
+}
+
+/* Required Field Indicator */
+.required label:after {
+    content: '*';
+    color: var(--primary-color);
+    margin-left: 5px;
+}
+
+/* List View */
+#changelist {
+    background: var(--card-color);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 20px var(--shadow-color);
+    margin: 20px;
+}
+
+/* Search Bar Styling */
+#searchbar {
+    background: var(--card-color);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    margin-bottom: 20px;
+}
+
+/* Action Bar */
+.actions {
+    background: var(--card-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+/* Filter Sidebar */
+#changelist-filter {
+    background: var(--filter-bg);
+    padding: 20px;
+    border-radius: 12px;
+    margin-left: 20px;
+    border: 1px solid #333;
+}
+
+#changelist-filter h2 {
+    color: var(--primary-color);
+    font-size: 18px;
+    margin-bottom: 15px;
+    background: var(--table-header);
+    color: var(--text-color);
+}
+
+#changelist-filter li {
+    margin: 8px 0;
+}
+
+#changelist-filter li a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+#changelist-filter li.selected a {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* Pagination */
+.paginator {
+    background: var(--card-color);
+    color: var(--text-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.action-counter {
+    color: var(--text-muted);
+}
+
+/* Action Buttons */
+.addlink, .changelink, .deletelink {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.addlink:hover, .changelink:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.deletelink {
+    background: #ff7675;
+}
+
+.deletelink:hover {
+    background: #d63031;
+}
+
+.object-tools a {
+    background: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+.object-tools a:hover {
+    background: var(--secondary-color);
+}
+
+/* Table Styling */
+#result_list {
+    width: 100%;
+    background: var(--table-bg);
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+#result_list thead th {
+    background: var(--table-header);
+    color: var(--text-color);
+    padding: 15px 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #333;
+}
+
+#result_list tbody tr {
+    background: var(--card-color);
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #333;
+}
+
+#result_list tbody tr:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    background: var(--hover-bg);
+}
+
+/* Action Dropdown */
+select[name="action"] {
+    background: var(--card-color);
+    color: var(--text-color);
+    border: 2px solid var(--input-border);
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* Links */
+a:link, a:visited {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+/* Breadcrumbs */
+div.breadcrumbs {
+    background: #1A1A1A;
+    color: var(--text-color);
+    border-bottom: 1px solid #333;
+}
+
+div.breadcrumbs a {
+    color: var(--link-color);
+}
+
+/* Messages */
+.success {
+    color: #4CAF50;
+}
+
+.warning {
+    color: #FFC107;
+}
+
+.error {
+    color: #FF5252;
+}
+
+/* Dashboard text */
+.dashboard-tile a {
+    color: var(--link-color);
+}
+
+/* Form help text */
+p.help {
+    color: var(--text-muted);
+} 
 /* Color Variables */
 :root {
     --primary-color: #FF6B6B;
